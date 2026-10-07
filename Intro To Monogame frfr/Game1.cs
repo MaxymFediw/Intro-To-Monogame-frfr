@@ -25,6 +25,8 @@ namespace Intro_To_Monogame_frfr
 
         List<Texture2D> shipTextures;
 
+        float textOpacity;
+
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -50,6 +52,8 @@ namespace Intro_To_Monogame_frfr
             shipRect = new Rectangle(generator.Next(0, window.Width - 75), generator.Next(0, window.Height - 100), 75, 100);
 
             shipTextures = new List<Texture2D>();
+
+            textOpacity = 0f;
 
 
             base.Initialize();
@@ -80,6 +84,8 @@ namespace Intro_To_Monogame_frfr
 
             // TODO: Add your update logic here
 
+            textOpacity += .0005f;
+
             base.Update(gameTime);
         }
 
@@ -92,9 +98,13 @@ namespace Intro_To_Monogame_frfr
             _spriteBatch.Begin();
 
             _spriteBatch.Draw(backgroundTexture, window, Color.White);
-            _spriteBatch.Draw(shipTexture, shipRect, Color.White);
+            //_spriteBatch.Draw(shipTexture, shipRect, Color.White * 0.5f); //the 0.5 makes the image more transparent.
 
-            _spriteBatch.DrawString(titleFont, "Space", new Vector2(300, 10), Color.Yellow);
+            _spriteBatch.Draw(shipTexture, shipRect, null, Color.White, 1f, Vector2.Zero, SpriteEffects.FlipVertically, 1f);
+                                                                     // ^^Thats how much its rotated in radions 
+            _spriteBatch.DrawString(titleFont, "Space", new Vector2(300, 10), Color.Yellow * textOpacity);
+
+
 
             _spriteBatch.End();
 
